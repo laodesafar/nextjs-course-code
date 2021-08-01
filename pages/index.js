@@ -1,11 +1,20 @@
-import { getFeaturedEvents } from "../dummy-data";
+import { getFeaturedEvents } from "../helpers/api-utils";
 import EventList from "../components/events/event-list";
 
-export default function Beranda() {
-  const fiturEvent = getFeaturedEvents();
+export default function Beranda(props) {
   return (
     <div>
-      <EventList items={fiturEvent} />
+      <EventList items={props.events} />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const featuredEvents = await getFeaturedEvents();
+
+  return {
+    props: {
+      events: featuredEvents,
+    },
+  };
 }
